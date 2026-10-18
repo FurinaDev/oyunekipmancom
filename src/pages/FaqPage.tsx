@@ -121,9 +121,11 @@ export const FaqPage: React.FC = () => {
   const filteredFaqs = useMemo(() => {
     return FAQ_ITEMS.filter((item) => {
       const matchesCat = activeCategory === 'all' || item.category === activeCategory;
+      if (!searchQuery.trim()) return matchesCat;
+      const q = searchQuery.toLocaleLowerCase('tr-TR');
       const matchesSearch =
-        item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.answer.toLowerCase().includes(searchQuery.toLowerCase());
+        item.question.toLocaleLowerCase('tr-TR').includes(q) ||
+        item.answer.toLocaleLowerCase('tr-TR').includes(q);
       return matchesCat && matchesSearch;
     });
   }, [searchQuery, activeCategory]);

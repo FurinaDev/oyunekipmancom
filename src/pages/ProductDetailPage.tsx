@@ -54,6 +54,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'specs' | 'desc' | 'escrow' | 'reviews'>('specs');
   const [isLiked, setIsLiked] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
 
   // New review form state
   const [userRating, setUserRating] = useState<number>(5);
@@ -153,13 +162,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <Heart className={`w-4 h-4 ${isLiked ? 'fill-red-500' : ''}`} />
           </button>
           <button
-            onClick={() => {
-              navigator.clipboard?.writeText(window.location.href);
-              alert('Ürün bağlantısı panoya kopyalandı.');
-            }}
-            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white cursor-pointer"
+            onClick={handleCopyLink}
+            className={`p-2 rounded-lg border transition-all cursor-pointer ${
+              copied
+                ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white'
+            }`}
+            title="İlan Bağlantısını Kopyala"
           >
-            <Share2 className="w-4 h-4" />
+            {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Share2 className="w-4 h-4" />}
           </button>
         </div>
       </div>

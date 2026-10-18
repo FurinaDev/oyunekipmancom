@@ -66,6 +66,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
   const [activeTab, setActiveTab] = useState<'listings' | 'reviews' | 'about' | 'escrow'>('listings');
   const [isEditingBio, setIsEditingBio] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [bioText, setBioText] = useState(
     seller.bio ||
       (isCorporate
@@ -77,6 +78,14 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   const sellerProducts = products.filter(
     (p) => p.seller.id === seller.id || p.seller.username === seller.username
   );
+
+  const handleCopyLink = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
@@ -143,14 +152,25 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => {
-                navigator.clipboard?.writeText(window.location.href);
-                alert('Profil bağlantısı panoya kopyalandı.');
-              }}
-              className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white cursor-pointer"
-              title="Paylaş"
+              onClick={handleCopyLink}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                copied
+                  ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
+                  : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white'
+              }`}
+              title="Profil Bağlantısını Paylaş"
             >
-              <Share2 className="w-4 h-4" />
+              {copied ? (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Kopyalandı!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Paylaş</span>
+                </>
+              )}
             </button>
             {isOwner && (
               <button
