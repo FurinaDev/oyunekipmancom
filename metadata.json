@@ -1,0 +1,6 @@
+{
+  "name": "oyunekipman.com",
+  "description": "Türkiye'nin dikey oyun donanımı ve dijital ürünler pazaryeri (C2C & B2C).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

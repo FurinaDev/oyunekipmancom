@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var _f = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _f; },
+            set: function(v) { _f = v; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (err) {}
+      })();
+    </script>
+    <title>oyunekipman.com — Oyun Donanımı & Dijital Pazaryeri</title>
+    <meta name="description" content="Türkiye'nin dikey oyun donanımı ve dijital ürünler pazaryeri (C2C & B2C)." />
+    <meta property="og:title" content="oyunekipman.com — Oyun Donanımı & Dijital Pazaryeri" />
+    <meta property="og:description" content="Türkiye'nin dikey oyun donanımı ve dijital ürünler pazaryeri (C2C & B2C)." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
